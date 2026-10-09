@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" fill="none">
+  <rect width="800" height="560" fill="#3b0764"/>
+  <rect x="180" y="160" width="440" height="240" rx="18" fill="#a855f7"/>
+  <rect x="210" y="190" width="180" height="180" rx="10" fill="#6b21a8"/>
+  <rect x="410" y="200" width="180" height="80" rx="8" fill="#f9a8d4"/>
+  <rect x="410" y="300" width="180" height="60" rx="8" fill="#e9d5ff"/>
+  <text x="400" y="460" text-anchor="middle" fill="#fff" font-family="Arial" font-size="22" font-weight="700">Packing Machine</text>
+  <text x="400" y="488" text-anchor="middle" fill="#e9d5ff" font-family="Arial" font-size="13">Manual · Digital · Fully Automatic</text>
+</svg>

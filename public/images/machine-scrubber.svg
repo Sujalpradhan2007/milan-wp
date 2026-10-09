@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" fill="none">
+  <rect width="800" height="560" fill="#172554"/>
+  <rect x="140" y="200" width="520" height="180" rx="16" fill="#3b82f6"/>
+  <circle cx="230" cy="290" r="42" fill="#94a3b8"/>
+  <circle cx="350" cy="290" r="42" fill="#cbd5e1"/>
+  <circle cx="470" cy="290" r="42" fill="#94a3b8"/>
+  <circle cx="590" cy="290" r="42" fill="#cbd5e1"/>
+  <rect x="160" y="160" width="80" height="50" rx="8" fill="#f97316"/>
+  <text x="400" y="450" text-anchor="middle" fill="#fff" font-family="Arial" font-size="22" font-weight="700">Scrubber Making Machine</text>
+  <text x="400" y="478" text-anchor="middle" fill="#93c5fd" font-family="Arial" font-size="13">4 / 6 Head · steel &amp; nylon</text>
+</svg>

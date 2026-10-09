@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" fill="none">
+  <rect width="800" height="560" fill="#7c2d12"/>
+  <rect x="260" y="150" width="280" height="240" rx="14" fill="#ea580c"/>
+  <rect x="300" y="90" width="200" height="70" rx="10" fill="#fed7aa"/>
+  <ellipse cx="340" cy="430" rx="55" ry="16" fill="#fbbf24"/>
+  <ellipse cx="460" cy="430" rx="55" ry="16" fill="#fb7185"/>
+  <text x="400" y="490" text-anchor="middle" fill="#fff" font-family="Arial" font-size="22" font-weight="700">Sleeper Cutting Machine</text>
+  <text x="400" y="516" text-anchor="middle" fill="#fdba74" font-family="Arial" font-size="13">Compact press · 300+ pairs/hr</text>
+</svg>
