@@ -131,7 +131,7 @@ export default function OfferCard({ offer, delay = 0 }: { offer: OfferData; dela
 
             {(offer.includedItems?.length > 0 || items.length > 0) && (
               <>
-                <h4 className="mt-6 font-display text-sm font-extrabold uppercase tracking-wider text-muted">What's included</h4>
+                <h4 className="mt-6 font-display text-sm font-extrabold uppercase tracking-wider text-muted">What&apos;s included</h4>
                 <ul className="mt-3 space-y-2">
                   {(offer.includedItems?.length ? offer.includedItems : items.map((n: string) => ({ name: n, photo: null }))).map((it: any, i: number) => (
                     <li key={i} className="flex items-center gap-3 rounded-2xl border border-[var(--border)] p-2 transition hover:border-brand-300">

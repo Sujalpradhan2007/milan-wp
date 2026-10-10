@@ -28,7 +28,9 @@ const EXT: Record<string, string> = {
 };
 
 export function uploadDir() {
-  return process.env.UPLOAD_DIR || path.join(process.cwd(), ".data", "uploads");
+  // A relative default is resolved from the app's working directory at runtime.
+  // Avoid resolving it during the build, which makes Turbopack trace the whole project.
+  return process.env.UPLOAD_DIR || ".data/uploads";
 }
 
 export function cloudinaryEnabled() {

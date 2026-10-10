@@ -3,6 +3,10 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import { getSettings } from "@/lib/settings";
 
+// Metadata comes from PostgreSQL, which is initialized when the deployed
+// service starts. Do not query it while producing a deployment build.
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
   return {

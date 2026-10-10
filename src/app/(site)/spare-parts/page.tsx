@@ -45,7 +45,7 @@ export default async function SparePartsPage() {
 
           <Reveal delay={120} className="mt-14">
             <div className="rounded-[1.75rem] surface card-shadow border border-[var(--border)] p-8">
-              <h3 className="font-display text-xl font-extrabold">Can't find your part?</h3>
+              <h3 className="font-display text-xl font-extrabold">Can&apos;t find your part?</h3>
               <p className="mt-2 max-w-2xl text-sm text-muted">
                 Send us a photo of the part or its code on WhatsApp. If it is not in stock we fabricate or source it — most
                 requests are shipped within 48 hours. We also keep a full die bank for every plate size from 4&quot; to 14&quot;.

@@ -345,7 +345,6 @@ export function Countdown({ to, className }: { to: string | Date; className?: st
   useEffect(() => {
     const id = setInterval(() => setV(calc()), 1000);
     return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [target]);
   const items = [["Days", v.d], ["Hrs", v.h], ["Min", v.m], ["Sec", v.s]] as const;
   return (

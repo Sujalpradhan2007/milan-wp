@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   // exists on the machine. This makes local and Render builds resolve from this
   // application only.
   turbopack: {
-    root: process.cwd(),
+    root: import.meta.dirname,
   },
 };
 
