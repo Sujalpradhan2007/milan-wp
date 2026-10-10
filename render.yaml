@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: milan-enterprises
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    preDeployCommand: npx drizzle-kit push --config drizzle.config.ts
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: DATABASE_URL
+        fromDatabase:
+          name: milan-enterprises-db
+          property: connectionString
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: SEED_SECRET
+        generateValue: true
+      - key: NEXT_PUBLIC_SITE_URL
+        fromService:
+          name: milan-enterprises
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+
+databases:
+  - name: milan-enterprises-db
+    plan: 0.1c-256mb
