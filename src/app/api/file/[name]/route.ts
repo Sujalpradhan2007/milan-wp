@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createReadStream, existsSync, statSync } from "fs";
-import path from "path";
+import { basename, extname, join } from "path";
 import { uploadDir } from "@/lib/upload";
 
 export const dynamic = "force-dynamic";
@@ -14,12 +14,14 @@ const MIME: Record<string, string> = {
 
 export async function GET(_req: NextRequest, ctx: { params: Promise<{ name: string }> }) {
   const { name } = await ctx.params;
-  const safe = path.basename(name);
-  const full = path.join(uploadDir(), safe);
+  const safe = basename(name);
+  // Keep the literal "uploads" segment so Turbopack does not trace the whole
+  // project through the path helper (same directory as src/lib/upload.ts).
+  const full = join(/* turbopackIgnore: true */ uploadDir(), "uploads", safe);
   if (!existsSync(full) || !statSync(full).isFile()) {
     return NextResponse.json({ error: "File not found" }, { status: 404 });
   }
-  const ext = path.extname(safe).toLowerCase();
+  const ext = extname(safe).toLowerCase();
   const stream = createReadStream(full);
   const body = new ReadableStream<Uint8Array>({
     start(controller) {

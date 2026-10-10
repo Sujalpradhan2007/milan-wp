@@ -1,6 +1,6 @@
 import { createHash, createHmac } from "crypto";
 import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { basename, extname, join } from "path";
 
 /**
  * Persistent media storage.
@@ -30,7 +30,9 @@ const EXT: Record<string, string> = {
 export function uploadDir() {
   // A relative default is resolved from the app's working directory at runtime.
   // Avoid resolving it during the build, which makes Turbopack trace the whole project.
-  return process.env.UPLOAD_DIR || ".data/uploads";
+  // The returned value is a directory name only; callers append a literal
+  // "uploads" segment so the tracer never has to follow a path helper.
+  return process.env.UPLOAD_DIR || ".data";
 }
 
 export function cloudinaryEnabled() {
@@ -72,7 +74,7 @@ async function uploadToCloudinary(buffer: Buffer, filename: string): Promise<str
 
 export async function saveUpload(file: File): Promise<{ url: string; storage: "cloudinary" | "disk"; name: string }> {
   const buffer = Buffer.from(await file.arrayBuffer());
-  const ext = EXT[file.type] || path.extname(file.name || "").toLowerCase() || ".bin";
+  const ext = EXT[file.type] || extname(file.name || "").toLowerCase() || ".bin";
   const base = (file.name || "upload").replace(/\.[^.]+$/, "").replace(/[^a-zA-Z0-9-_]+/g, "-").slice(0, 40);
   const stamp = Date.now().toString(36);
   const rand = createHmac("sha256", "me").update(`${base}${stamp}${Math.random()}`).digest("hex").slice(0, 6);
@@ -87,9 +89,12 @@ export async function saveUpload(file: File): Promise<{ url: string; storage: "c
     }
   }
 
-  const dir = uploadDir();
+  // Resolve the storage directory at request time only. Using a literal segment
+  // keeps Turbopack's file tracer scoped instead of following the path helper
+  // through node_modules, which would make it trace the entire project.
+  const dir = join(/* turbopackIgnore: true */ uploadDir(), "uploads");
   await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, name), buffer);
+  await writeFile(join(/* turbopackIgnore: true */ dir, name), buffer);
   return { url: `/api/file/${name}`, storage: "disk", name };
 }
 
@@ -98,7 +103,8 @@ export async function deleteUpload(url: string): Promise<void> {
   if (url.startsWith("/api/file/")) {
     try {
       const { unlink } = await import("fs/promises");
-      await unlink(path.join(uploadDir(), url.replace("/api/file/", "")));
+      const file = basename(url.replace("/api/file/", ""));
+      await unlink(join(/* turbopackIgnore: true */ uploadDir(), "uploads", file));
     } catch {
       /* ignore */
     }
