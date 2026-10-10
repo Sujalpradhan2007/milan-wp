@@ -4,8 +4,9 @@ services:
     runtime: node
     plan: free
     buildCommand: npm ci && npm run build
-    preDeployCommand: npx drizzle-kit push --config drizzle.config.ts
-    startCommand: npm start
+    # Schema setup runs in the service environment, where the managed
+    # Postgres connection is guaranteed to be available.
+    startCommand: npx drizzle-kit push --config drizzle.config.ts && npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
