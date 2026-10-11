@@ -1,0 +1,10 @@
+
+> start
+> next start
+
+▲ Next.js 16.2.6
+- Local:         http://localhost:3000
+- Network:       http://172.20.160.73:3000
+✓ Ready in 416ms
+[seed] database seeded successfully
+[catalogue] added 14, colours 4, photos 4

@@ -4,9 +4,12 @@ services:
     runtime: node
     plan: free
     buildCommand: npm ci && npm run build
-    # Schema setup runs in the service environment, where the managed
-    # Postgres connection is guaranteed to be available.
-    startCommand: npx drizzle-kit push --config drizzle.config.ts && npm start
+    # Schema setup runs as a pre-deploy job in the service environment, where
+    # the managed Postgres connection is guaranteed to be available.
+    # drizzle-kit migrate is fully non-interactive (unlike push), so it is safe
+    # for an unattended deploy. Idempotent: already-applied migrations are skipped.
+    preDeployCommand: node scripts/migrate.mjs
+    startCommand: npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
@@ -19,6 +22,10 @@ services:
         generateValue: true
       - key: SEED_SECRET
         generateValue: true
+      - key: NPM_CONFIG_FUND
+        value: "false"
+      - key: NPM_CONFIG_AUDIT
+        value: "false"
       - key: NEXT_PUBLIC_SITE_URL
         fromService:
           name: milan-enterprises
